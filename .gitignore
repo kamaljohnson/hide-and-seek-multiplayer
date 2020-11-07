@@ -1,11 +1,11 @@
 # Custom ignores
 Hide And Seek Multiplayer/[Ll]ibrary/
-Hide And Seek Multiplayer[Tt]emp/
-Hide And Seek Multiplayer[Oo]bj/
-Hide And Seek Multiplayer[Bb]uild/
-Hide And Seek Multiplayer[Bb]uilds/
-Hide And Seek Multiplayer[Ll]ogs/
-Hide And Seek Multiplayer[Mm]emoryCaptures/
+Hide And Seek Multiplayer/[Tt]emp/
+Hide And Seek Multiplayer/[Oo]bj/
+Hide And Seek Multiplayer/[Bb]uild/
+Hide And Seek Multiplayer/[Bb]uilds/
+Hide And Seek Multiplayer/[Ll]ogs/
+Hide And Seek Multiplayer/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
