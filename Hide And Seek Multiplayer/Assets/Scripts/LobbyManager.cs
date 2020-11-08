@@ -18,11 +18,12 @@ public class LobbyManager : NetworkBehaviour
     public void StartGame()
     {
         ClientStartGame();
+        startButton.SetActive(false);
     }
 
     [ClientRpc]
     void ClientStartGame()
     {
-        SceneManager.LoadScene("Game");
+        GameManager.instance.StartGame();
     }
 }

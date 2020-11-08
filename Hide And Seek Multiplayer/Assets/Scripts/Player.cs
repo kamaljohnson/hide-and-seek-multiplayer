@@ -16,7 +16,7 @@ public class Player : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        
+
         if (!isLocalPlayer)
         {
             camera.SetActive(false);
