@@ -1,6 +1,6 @@
 ﻿using Mirror;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
@@ -9,6 +9,8 @@ public class GameManager : NetworkBehaviour
     public GameObject lobbyRoom;
 
     public static GameManager instance;
+
+    public Player localPlayer;
 
     public void Start()
     {
@@ -19,6 +21,8 @@ public class GameManager : NetworkBehaviour
     {
         lobbyRoom.SetActive(false);
         gameBuilding.SetActive(true);
+
+        PlayerSpawner.instance.SpawnPlayer(localPlayer);
     }
-    
+
 }

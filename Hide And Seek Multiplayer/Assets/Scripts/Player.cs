@@ -11,20 +11,27 @@ public class Player : NetworkBehaviour
 {
 
     public PlayerType type;
-    public GameObject camera;
+    public GameObject _camera;
 
-    private void Start()
+    public void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         if (!isLocalPlayer)
         {
-            camera.SetActive(false);
+            _camera.SetActive(false);
+        } 
+        else
+        {
+            GameManager.instance.localPlayer = this;
         }
     }
 
-    void Update()
+    public void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            Physics.IgnoreCollision(collision.collider, GetComponent<Collision>().collider);
+        }
     }
 }
