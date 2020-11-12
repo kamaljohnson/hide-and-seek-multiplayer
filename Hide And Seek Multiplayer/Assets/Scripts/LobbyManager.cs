@@ -93,11 +93,19 @@ public class LobbyManager : NetworkBehaviour
         GameManager.instance.localPlayer.TriggerPlayerColorChange(color);
     }
 
-
     [Server]
     public void SetPlayerColor(Player player)
     {
-        player.ChangePlayerColor((PlayerColor)Random.Range(0, playerColorMaterials.Count));
+        while (true)
+        {
+            PlayerColor color = (PlayerColor)Random.Range(0, playerColorMaterials.Count);
+            if (selectableColors.Contains(color))
+            {
+                selectableColors.Remove(color);
+                player.ChangePlayerColor(color);
+                return;
+            }
+        }
     }
 
     [Server]

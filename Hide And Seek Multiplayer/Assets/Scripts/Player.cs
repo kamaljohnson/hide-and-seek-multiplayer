@@ -26,6 +26,7 @@ public class Player : NetworkBehaviour
         if (!isLocalPlayer)
         {
             _camera.SetActive(false);
+            InitPlayerColor();
         } 
         else
         {
@@ -93,6 +94,12 @@ public class Player : NetworkBehaviour
     {
         //change the actual player material according to the new color
         body.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int)color];
+    }
+
+    [Client]
+    public void InitPlayerColor()
+    {
+        body.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int) color];
     }
 
     [Client]
