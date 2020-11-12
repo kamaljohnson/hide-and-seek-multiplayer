@@ -10,7 +10,7 @@ Material:
   m_Name: Wall
   m_Shader: {fileID: -6465566751694194690, guid: 3b479269412d1984ea5d1a64dffb528c, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 6
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -101,7 +101,7 @@ Material:
     - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Position: {r: 0.5, g: 0.4493035, b: 50.781685, a: 0}
+    - _Position: {r: 0.5, g: 0.4493035, b: 50.781677, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3481491888951646280
