@@ -170,7 +170,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   startButton: {fileID: 1808902403}
-  customizSettingsButton: {fileID: 0}
+  customizeSettingsButton: {fileID: 252705354}
+  customizeSettingsPanel: {fileID: 0}
+  playerColorMaterials:
+  - {fileID: 2100000, guid: e333a34479303d240818e48799c6bab3, type: 2}
+  - {fileID: 2100000, guid: 4928a5cb86f0ce841852322780e63e42, type: 2}
+  - {fileID: 2100000, guid: 8cb1f7280bdd0db4687c6d31aec66607, type: 2}
+  - {fileID: 2100000, guid: bbb7ca2fccf74624aa764453e505f41a, type: 2}
+  - {fileID: 2100000, guid: e87a7db18c6dddc4a823c0268d9c3f4a, type: 2}
+  - {fileID: 2100000, guid: a97033f50d7c3194dae9cd756cf2df59, type: 2}
+  - {fileID: 2100000, guid: 3809e05b599b3d042b63d92be7f7a950, type: 2}
+  - {fileID: 2100000, guid: 82e0ea7537896ba41adf8a21bff751d7, type: 2}
+  - {fileID: 2100000, guid: 8abd1618e3e447740966ae7b0ac025ef, type: 2}
+  - {fileID: 2100000, guid: 6dfc1a87114dcfb41a34546c585be919, type: 2}
+  selectableColors: 
 --- !u!114 &25210670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,7 +1053,7 @@ GameObject:
   - component: {fileID: 766247902}
   - component: {fileID: 766247901}
   m_Layer: 0
-  m_Name: Seeker Zone (1)
+  m_Name: Customize Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2937,7 +2950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1808902404
 RectTransform:
   m_ObjectHideFlags: 0

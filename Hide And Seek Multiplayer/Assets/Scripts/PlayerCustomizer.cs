@@ -11,7 +11,19 @@ public class PlayerCustomizer : MonoBehaviour
             Player player = other.gameObject.GetComponent<Player>();
             if (player.isLocalPlayer)
             {
-                LobbyManager.instance.ShowCustomizSettingsButton();
+                LobbyManager.instance.ShowCustomizeSettingsButton();
+            }
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Player player = other.gameObject.GetComponent<Player>();
+            if (player.isLocalPlayer)
+            {
+                LobbyManager.instance.HideCustomizeSettingsButton();
             }
         }
     }

@@ -17,6 +17,8 @@ public class Player : NetworkBehaviour
 
     public GameObject _camera;
 
+    public GameObject body;
+
     public void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -90,6 +92,7 @@ public class Player : NetworkBehaviour
     public void ClientChangePlayerColor(PlayerColor color)
     {
         //change the actual player material according to the new color
+        body.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int)color];
     }
 
     [Client]

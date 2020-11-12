@@ -21,7 +21,10 @@ public class LobbyManager : NetworkBehaviour
 {
 
     public GameObject startButton;
-    public GameObject customizSettingsPanel;
+    public GameObject customizeSettingsButton;
+    public GameObject customizeSettingsPanel;
+
+    public List<Material> playerColorMaterials;
 
     public static LobbyManager instance;
 
@@ -67,9 +70,21 @@ public class LobbyManager : NetworkBehaviour
     }
 
     [Client]
-    public void ShowCustomizSettingsButton()
+    public void ShowCustomizeSettingsButton()
     {
-        customizSettingsPanel.SetActive(true);
+        customizeSettingsButton.SetActive(true);
+    }
+
+    [Client]
+    public void HideCustomizeSettingsButton()
+    {
+        customizeSettingsButton.SetActive(false);
+    }
+
+    [Client]
+    public void ShowCustomizeSettingsPanel()
+    {
+        customizeSettingsPanel.SetActive(true);
     }
 
     [Client]    //Triggerd from unity Button event
@@ -82,7 +97,7 @@ public class LobbyManager : NetworkBehaviour
     [Server]
     public void SetPlayerColor(Player player)
     {
-        player.ChangePlayerColor(PlayerColor.Brown);
+        player.ChangePlayerColor((PlayerColor)Random.Range(0, playerColorMaterials.Count));
     }
 
     [Server]

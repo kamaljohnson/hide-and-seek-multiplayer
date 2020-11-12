@@ -70,7 +70,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   type: 1
+  color: 0
   _camera: {fileID: 7537738702820317357}
+  body: {fileID: 8984167190882639078}
 --- !u!114 &-3953518759982385953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +326,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82e0ea7537896ba41adf8a21bff751d7, type: 2}
+  - {fileID: 2100000, guid: e333a34479303d240818e48799c6bab3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
