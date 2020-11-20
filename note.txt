@@ -1,0 +1,7 @@
+- npc monsters
+- come from portels (can be destroyed)
+- med player to player
+- monsters folow by sight
+- active generators can stope monsters/npcs from detecting or someting..
+- seekers can go throug portels which are being placed and maintained by seekers / generators (hiders can destroy the portals by destroying the generator / portal)
+-all the generator should be swithed on to activate the end portal ( red button ).
