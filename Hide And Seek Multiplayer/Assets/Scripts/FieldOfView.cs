@@ -18,7 +18,7 @@ public class FieldOfView : MonoBehaviour
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
-    public void Update()
+    public void LateUpdate()
     {
 
         float angle = 0f;
@@ -40,14 +40,18 @@ public class FieldOfView : MonoBehaviour
             Vector3 vertex;
 
             RaycastHit hit;
+            bool rayIsHit = false;
             if (Physics.Raycast(transform.position, GetVectorFromAngle(angle), out hit, viewDistance, mask))
             {
+                rayIsHit = true;
                 vertex = hit.point - transform.position;
             }
             else
             {
                 vertex = origin + GetVectorFromAngle(angle) * viewDistance;
             }
+
+            ShowMaskableObjects(angle, rayIsHit ? hit.distance : viewDistance);
 
             verticies[vertexIndex] = vertex;
 
@@ -67,6 +71,21 @@ public class FieldOfView : MonoBehaviour
         mesh.uv = uv;
         mesh.triangles = triangles;
         mesh.bounds = new Bounds(origin, Vector3.one * 1000f);
+    }
+
+    public void ShowMaskableObjects(float angle, float distance)
+    {
+
+        var hits = Physics.RaycastAll(transform.position, GetVectorFromAngle(angle), distance);
+
+        for (int j = 0; j < hits.Length; j++)
+        {
+            RaycastHit _hit = hits[j];
+            if (_hit.collider.tag == "MaskableObject")
+            {
+                _hit.collider.gameObject.GetComponent<MaskableObject>().setAsVisible();
+            }
+        }
     }
 
     public static Vector3 GetVectorFromAngle(float angle)
