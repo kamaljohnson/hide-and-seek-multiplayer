@@ -18,6 +18,8 @@ public class Player : NetworkBehaviour
     public GameObject _camera;
 
     public GameObject body;
+    public FieldOfView fov;
+    public GameObject fovObject;
 
     public void Start()
     {
@@ -43,17 +45,35 @@ public class Player : NetworkBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Physics.IgnoreCollision(collision.collider, GetComponent<Collision>().collider);
-        }
-    }
-
     public void ChangePlayerType(PlayerType type)
     {
         this.type = type;
+        fov.SetPlayerType(type);
+    }
+
+    [Client]
+    public void SetupFovPlayerMasking()
+    {
+        CmdSetupFovPlayerMasking();
+    }
+
+    [Command]
+    public void CmdSetupFovPlayerMasking()
+    {
+        ClientSetupFovPlayerMasking();
+    }
+
+    [ClientRpc]
+    public void ClientSetupFovPlayerMasking()
+    {
+        if (type == GameManager.instance.localPlayer.type)
+        {
+            fovObject.SetActive(true);
+            body.GetComponent<MaskableObject>().isAlwaysVisible = true;
+        } else
+        {
+            body.GetComponent<MaskableObject>().isAlwaysVisible = false;
+        }
     }
 
     [Client]

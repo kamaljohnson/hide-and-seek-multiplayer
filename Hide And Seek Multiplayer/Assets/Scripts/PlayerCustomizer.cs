@@ -6,7 +6,7 @@ public class PlayerCustomizer : MonoBehaviour
 {
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Player player = other.gameObject.GetComponent<Player>();
             if (player.isLocalPlayer)
@@ -18,7 +18,7 @@ public class PlayerCustomizer : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Player player = other.gameObject.GetComponent<Player>();
             if (player.isLocalPlayer)

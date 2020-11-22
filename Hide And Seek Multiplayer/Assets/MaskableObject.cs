@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MaskableObject : MonoBehaviour
 {
+    public bool isAlwaysVisible = false;
 
     [HideInInspector]
     public bool isVisible = false;
@@ -13,6 +14,8 @@ public class MaskableObject : MonoBehaviour
     Renderer renderer;
     float visibilityTimer;
 
+    bool visibilitySwitchFlag = false;
+
     public void Start()
     {
         renderer = GetComponent<Renderer>();
@@ -20,6 +23,25 @@ public class MaskableObject : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (isAlwaysVisible)
+        {
+            if (!visibilitySwitchFlag)
+            {
+                renderer.enabled = true;
+            }
+            visibilitySwitchFlag = true;
+
+            return;
+        } else
+        {
+            if(visibilitySwitchFlag)
+            {
+                isVisible = true;
+            }
+
+            visibilitySwitchFlag = false;
+        }
+
         if (isVisible)
         {
             visibilityTimer -= Time.deltaTime;
@@ -34,6 +56,7 @@ public class MaskableObject : MonoBehaviour
 
     public void setAsVisible()
     {
+        if (isAlwaysVisible) return;
         if (!isVisible)
         {
             isVisible = true;

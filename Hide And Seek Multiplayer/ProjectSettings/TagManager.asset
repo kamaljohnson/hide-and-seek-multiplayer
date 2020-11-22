@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MaskableObject
+  - PlayerBody
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Behind Mask
   - Black
   - 
-  - 
+  - Player
   - 
   - 
   - 

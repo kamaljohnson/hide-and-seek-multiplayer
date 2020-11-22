@@ -10,6 +10,8 @@ public class FieldOfView : MonoBehaviour
     Mesh mesh;
     Vector3 origin;
 
+    PlayerType oppositionPlayerType;
+
     public LayerMask mask;
     
     public void Start()
@@ -81,7 +83,8 @@ public class FieldOfView : MonoBehaviour
         for (int j = 0; j < hits.Length; j++)
         {
             RaycastHit _hit = hits[j];
-            if (_hit.collider.tag == "MaskableObject")
+            string colliderTag = _hit.collider.tag;
+            if (colliderTag == "MaskableObject" || colliderTag == "PlayerBody")
             {
                 _hit.collider.gameObject.GetComponent<MaskableObject>().setAsVisible();
             }
@@ -92,5 +95,10 @@ public class FieldOfView : MonoBehaviour
     {
         float angleRad = angle * (Mathf.PI / 180f);
         return new Vector3(Mathf.Cos(angleRad), 0, Mathf.Sin(angleRad));
+    }
+
+    public void SetPlayerType(PlayerType playerType)
+    {
+        oppositionPlayerType = playerType == PlayerType.Hider ? PlayerType.Seeker : PlayerType.Hider;
     }
 }

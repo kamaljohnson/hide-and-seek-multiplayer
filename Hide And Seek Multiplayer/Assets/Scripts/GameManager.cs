@@ -25,6 +25,7 @@ public class GameManager : NetworkBehaviour
         lobbyRoom.SetActive(false);
         gameBuilding.SetActive(true);
 
+        localPlayer.SetupFovPlayerMasking();
         PlayerSpawner.instance.SpawnPlayer(localPlayer);
     }
 
