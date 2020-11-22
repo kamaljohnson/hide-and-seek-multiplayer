@@ -45,10 +45,22 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [Client]
     public void ChangePlayerType(PlayerType type)
     {
+        CmdChangePlayerType(type);
+    }
+
+    [Command]
+    public void CmdChangePlayerType(PlayerType type)
+    {
+        ClientChangePlayerType(type);
+    }
+
+    [ClientRpc]
+    public void ClientChangePlayerType(PlayerType type)
+    {
         this.type = type;
-        fov.SetPlayerType(type);
     }
 
     [Client]
