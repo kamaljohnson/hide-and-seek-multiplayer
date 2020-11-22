@@ -14,6 +14,8 @@ public class GameManager : NetworkBehaviour
 
     public List<Player> players;
 
+    public PlayerInputManager playerInputManager;
+
     public void Start()
     {
         instance = this;
@@ -22,11 +24,19 @@ public class GameManager : NetworkBehaviour
     [Client]
     public void StartGame()
     {
+        players = FindObjectsOfType<Player>().ToList();
+
         lobbyRoom.SetActive(false);
         gameBuilding.SetActive(true);
 
         localPlayer.SetupFovPlayerMasking();
         PlayerSpawner.instance.SpawnPlayer(localPlayer);
+
+        if(localPlayer.type == PlayerType.Seeker)
+        {
+            playerInputManager.EnableReportUi();
+            playerInputManager.InitReportUi(players.Where(player => player.type == PlayerType.Hider).ToList());
+        }
     }
 
     [Server]

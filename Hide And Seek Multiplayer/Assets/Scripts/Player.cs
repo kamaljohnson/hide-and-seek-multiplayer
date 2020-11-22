@@ -21,6 +21,11 @@ public class Player : NetworkBehaviour
     public FieldOfView fov;
     public GameObject fovObject;
 
+    public override string ToString()
+    {
+        return "type : " + type.ToString() + ", color: " + color.ToString();
+    }
+
     public void Start()
     {
         DontDestroyOnLoad(gameObject);
