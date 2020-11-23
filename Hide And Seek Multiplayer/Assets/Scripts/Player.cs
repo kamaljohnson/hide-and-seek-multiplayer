@@ -160,9 +160,14 @@ public class Player : NetworkBehaviour
     [Client]
     public void Take(EquippableObject obj)
     {
-        var type = obj.type;
+        CmdTake(obj.type);
+        CmdDestroyEquippableObject(obj.gameObject);
+    }
+
+    [Command]
+    public void CmdDestroyEquippableObject(GameObject obj)
+    {
         NetworkServer.Destroy(obj.gameObject);
-        CmdTake(type);
     }
 
     [Command]
@@ -205,7 +210,8 @@ public class Player : NetworkBehaviour
             }
         } else
         {
-                Instantiate(EquippableObjectCollection.instance.GetPrefab(newEquippedItem), handTransform); ;
+            GameObject obj = Instantiate(EquippableObjectCollection.instance.GetPrefab(newEquippedItem), handTransform);
+            obj.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }
