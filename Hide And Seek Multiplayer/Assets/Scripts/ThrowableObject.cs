@@ -2,10 +2,18 @@
 
 public class ThrowableObject : MonoBehaviour
 {
+
+    EquippableObject equippableObject;
+
+    public void Start()
+    {
+        equippableObject = GetComponent<EquippableObject>();
+    }
+
     public void Take()
     {
         //TODO attach the gameobject to player hand
-        GameManager.instance.localPlayer.Take(gameObject);
+        GameManager.instance.localPlayer.Take(equippableObject);
     }
 
     public void Throw()

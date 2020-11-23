@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System.Collections;
 using UnityEngine;
 
 public enum PlayerType
@@ -22,6 +23,9 @@ public class Player : NetworkBehaviour
     public GameObject fovObject;
 
     public Transform handTransform;
+
+    [SyncVar(hook = nameof(OnChangeEquipment))]
+    public EquippableObjectType equppedObjectType;
 
     public override string ToString()
     {
@@ -153,14 +157,20 @@ public class Player : NetworkBehaviour
         LobbyManager.instance.SetPlayerColor(this, color);
     }
 
-
     [Client]
-    public void Take(GameObject obj)
+    public void Take(EquippableObject obj)
     {
-        //TODO: attach the obj to player hand
-        obj.transform.SetParent(handTransform);
-        obj.transform.localPosition = Vector3.zero;
+        var type = obj.type;
+        NetworkServer.Destroy(obj.gameObject);
+        CmdTake(type);
     }
+
+    [Command]
+    public void CmdTake(EquippableObjectType type)
+    {
+        equppedObjectType = type;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -171,11 +181,31 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [Client]
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "ActionObject")
         {
             Action.instance.SetActionObjectNear(false);
+        }
+    }
+
+    void OnChangeEquipment(EquippableObjectType oldEquippedItem, EquippableObjectType newEquippedItem)
+    {
+        ChangeEquipment(newEquippedItem);
+    }
+
+    void ChangeEquipment(EquippableObjectType newEquippedItem)
+    {
+        if(newEquippedItem == EquippableObjectType.None)
+        {
+            if (handTransform.childCount > 0)
+            {
+                Destroy(handTransform.GetChild(0).gameObject);
+            }
+        } else
+        {
+                Instantiate(EquippableObjectCollection.instance.GetPrefab(newEquippedItem), handTransform); ;
         }
     }
 }

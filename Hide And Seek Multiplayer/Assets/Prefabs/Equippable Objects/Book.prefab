@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 5214319137322126078}
   - component: {fileID: 5214319137322126073}
   - component: {fileID: 1247583887547523791}
+  - component: {fileID: 3723934225984739932}
   m_Layer: 0
   m_Name: Book
   m_TagString: ActionObject
@@ -124,7 +125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5214319137322126054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125.95323, y: 165.19833, z: -30.484447}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 102300814683387662}
@@ -233,3 +234,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.0901567
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3723934225984739932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214319137322126054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d6c84d5197dfd4daab18941e95e4eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
