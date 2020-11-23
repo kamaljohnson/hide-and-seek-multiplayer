@@ -13,7 +13,6 @@ public class Report : MonoBehaviour
 
     public void InitHiderPanel(List<Player> hiders)
     {
-        Debug.Log("Here");
         foreach (Player hider in hiders)
         {
             Debug.Log("hider: " + hider.ToString());

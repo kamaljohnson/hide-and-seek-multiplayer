@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MaskableObject
   - PlayerBody
+  - ActionObject
   layers:
   - Default
   - TransparentFX

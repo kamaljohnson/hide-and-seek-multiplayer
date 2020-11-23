@@ -21,6 +21,8 @@ public class Player : NetworkBehaviour
     public FieldOfView fov;
     public GameObject fovObject;
 
+    public Transform handTransform;
+
     public override string ToString()
     {
         return "type : " + type.ToString() + ", color: " + color.ToString();
@@ -149,5 +151,31 @@ public class Player : NetworkBehaviour
     public void CmdTriggerPlayerColorChange(PlayerColor color)
     {
         LobbyManager.instance.SetPlayerColor(this, color);
+    }
+
+
+    [Client]
+    public void Take(GameObject obj)
+    {
+        //TODO: attach the obj to player hand
+        obj.transform.SetParent(handTransform);
+        obj.transform.localPosition = Vector3.zero;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "ActionObject")
+        {
+            Action.instance.SetActionObjectNear(true);
+            Action.instance.SetNearActionObject(other.gameObject.GetComponent<ActionObject>());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "ActionObject")
+        {
+            Action.instance.SetActionObjectNear(false);
+        }
     }
 }

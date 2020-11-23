@@ -35,7 +35,7 @@ public class GameManager : NetworkBehaviour
         if(localPlayer.type == PlayerType.Seeker)
         {
             playerInputManager.EnableReportUi();
-            playerInputManager.InitReportUi(players.Where(player => player.type == PlayerType.Hider).ToList());
+            playerInputManager.InitReportUi(GetHiders(players));
         }
     }
 
@@ -50,6 +50,20 @@ public class GameManager : NetworkBehaviour
     public void RemovePlayer(Player player)
     {
         players.Remove(player);
+    }
+
+
+    /*
+     * Helper functions
+     */
+    public List<Player> GetHiders(List<Player> players)
+    {
+        return players.Where(player => player.type == PlayerType.Hider).ToList();
+    }
+
+    public List<Player> GetSeekers(List<Player> players)
+    {
+        return players.Where(player => player.type == PlayerType.Seeker).ToList();
     }
 
 }
