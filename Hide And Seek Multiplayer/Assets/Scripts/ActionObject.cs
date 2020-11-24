@@ -1,7 +1,5 @@
 ﻿using Mirror;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,15 +18,16 @@ public class ActionObject : NetworkBehaviour
 
     [SerializeField]
     private OnActionInvoke onAttach = new OnActionInvoke();
-    public OnActionInvoke attachEvent { get { return actions; } set { actions = value; } }
+    public OnActionInvoke attachEvent { get { return onAction; } set { onAction = value; } }
 
     [SerializeField]
-    private OnActionInvoke actions = new OnActionInvoke();
-    public OnActionInvoke actionEvent { get { return actions; } set { actions = value; } }
+    private OnActionInvoke onAction = new OnActionInvoke();
+    public OnActionInvoke actionEvent { get { return onAction; } set { onAction = value; } }
 
     public void DoAction()
     {
-        actions.Invoke();
+        Debug.Log("DoAction from ActionObject");
+        onAction.Invoke();
     }
 
     public ActionObject Attach()

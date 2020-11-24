@@ -163,6 +163,22 @@ public class Player : NetworkBehaviour
         CmdDestroyEquippableObject(obj.gameObject);
     }
 
+    [Client]
+    public void Throw(EquippableObject obj, Vector3 directionVector)
+    {
+        CmdDrop();
+        CmdThrow(obj.type, handTransform.position, directionVector);
+    }
+
+    [Command]
+    public void CmdThrow(EquippableObjectType type, Vector3 initialPosition, Vector3 directionVector)
+    {
+        GameObject _obj = Instantiate(EquippableObjectCollection.instance.GetPrefab(type), handTransform.position, Quaternion.identity);
+        NetworkServer.Spawn(_obj);
+        var _objRb = _obj.GetComponent<Rigidbody>();
+        _objRb.AddForce(_objRb.mass * 600 * directionVector);
+    }
+
     [Command]
     public void CmdDestroyEquippableObject(GameObject obj)
     {
@@ -188,6 +204,12 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [Command]
+    public void CmdDrop()
+    {
+        equppedObjectType = EquippableObjectType.None;
+    }
+
     [Client]
     private void OnTriggerExit(Collider other)
     {
@@ -198,13 +220,11 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [Client]
     void OnChangeEquipment(EquippableObjectType oldEquippedItem, EquippableObjectType newEquippedItem)
     {
         ChangeEquipment(newEquippedItem);
     }
 
-    [Client]
     void ChangeEquipment(EquippableObjectType newEquippedItem)
     {
         if(newEquippedItem == EquippableObjectType.None)
@@ -216,6 +236,11 @@ public class Player : NetworkBehaviour
         } else
         {
             GameObject obj = Instantiate(EquippableObjectCollection.instance.GetPrefab(newEquippedItem), handTransform);
+            if (isLocalPlayer)
+            {
+                Action.instance.AttachActionObject(obj.GetComponent<ActionObject>());
+
+            }
             obj.GetComponent<ActionObject>().isAttached = true;
             obj.GetComponent<Rigidbody>().isKinematic = true;
         }

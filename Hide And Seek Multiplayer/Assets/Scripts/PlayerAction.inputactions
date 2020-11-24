@@ -12,6 +12,30 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ActionJoystick",
+                    "type": "Value",
+                    "id": "04da4a04-7593-42d5-83f1-792084add839",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ActionButton",
+                    "type": "Button",
+                    "id": "b8bf0f03-21ea-4c46-a8f7-adc3c7c39d3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ActionJoystickRelease",
+                    "type": "Button",
+                    "id": "c6ef2bb3-59f3-48e5-b7cf-36713d46f519",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -135,6 +159,50 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "98e14922-9412-4f34-8800-8af2232cef44",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActionJoystick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5a38c16-aa47-42eb-85ef-219df1d4b8b9",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActionButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f352bfb5-e5f6-4413-bf8b-caa1ac657a82",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActionButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55e6c36f-2e8a-4349-85a3-c5ad1590c30a",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActionJoystickRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

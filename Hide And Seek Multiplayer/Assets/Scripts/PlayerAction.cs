@@ -25,6 +25,30 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActionJoystick"",
+                    ""type"": ""Value"",
+                    ""id"": ""04da4a04-7593-42d5-83f1-792084add839"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActionButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8bf0f03-21ea-4c46-a8f7-adc3c7c39d3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActionJoystickRelease"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6ef2bb3-59f3-48e5-b7cf-36713d46f519"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -148,6 +172,50 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98e14922-9412-4f34-8800-8af2232cef44"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5a38c16-aa47-42eb-85ef-219df1d4b8b9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f352bfb5-e5f6-4413-bf8b-caa1ac657a82"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55e6c36f-2e8a-4349-85a3-c5ad1590c30a"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActionJoystickRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -157,6 +225,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
+        m_Main_ActionJoystick = m_Main.FindAction("ActionJoystick", throwIfNotFound: true);
+        m_Main_ActionButton = m_Main.FindAction("ActionButton", throwIfNotFound: true);
+        m_Main_ActionJoystickRelease = m_Main.FindAction("ActionJoystickRelease", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,11 +278,17 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Main;
     private IMainActions m_MainActionsCallbackInterface;
     private readonly InputAction m_Main_Move;
+    private readonly InputAction m_Main_ActionJoystick;
+    private readonly InputAction m_Main_ActionButton;
+    private readonly InputAction m_Main_ActionJoystickRelease;
     public struct MainActions
     {
         private @PlayerAction m_Wrapper;
         public MainActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Main_Move;
+        public InputAction @ActionJoystick => m_Wrapper.m_Main_ActionJoystick;
+        public InputAction @ActionButton => m_Wrapper.m_Main_ActionButton;
+        public InputAction @ActionJoystickRelease => m_Wrapper.m_Main_ActionJoystickRelease;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -224,6 +301,15 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_MainActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnMove;
+                @ActionJoystick.started -= m_Wrapper.m_MainActionsCallbackInterface.OnActionJoystick;
+                @ActionJoystick.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnActionJoystick;
+                @ActionJoystick.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnActionJoystick;
+                @ActionButton.started -= m_Wrapper.m_MainActionsCallbackInterface.OnActionButton;
+                @ActionButton.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnActionButton;
+                @ActionButton.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnActionButton;
+                @ActionJoystickRelease.started -= m_Wrapper.m_MainActionsCallbackInterface.OnActionJoystickRelease;
+                @ActionJoystickRelease.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnActionJoystickRelease;
+                @ActionJoystickRelease.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnActionJoystickRelease;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -231,6 +317,15 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @ActionJoystick.started += instance.OnActionJoystick;
+                @ActionJoystick.performed += instance.OnActionJoystick;
+                @ActionJoystick.canceled += instance.OnActionJoystick;
+                @ActionButton.started += instance.OnActionButton;
+                @ActionButton.performed += instance.OnActionButton;
+                @ActionButton.canceled += instance.OnActionButton;
+                @ActionJoystickRelease.started += instance.OnActionJoystickRelease;
+                @ActionJoystickRelease.performed += instance.OnActionJoystickRelease;
+                @ActionJoystickRelease.canceled += instance.OnActionJoystickRelease;
             }
         }
     }
@@ -238,5 +333,8 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     public interface IMainActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnActionJoystick(InputAction.CallbackContext context);
+        void OnActionButton(InputAction.CallbackContext context);
+        void OnActionJoystickRelease(InputAction.CallbackContext context);
     }
 }
