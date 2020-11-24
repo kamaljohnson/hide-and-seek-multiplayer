@@ -176,7 +176,7 @@ public class Player : NetworkBehaviour
         GameObject _obj = Instantiate(EquippableObjectCollection.instance.GetPrefab(type), handTransform.position, Quaternion.identity);
         NetworkServer.Spawn(_obj);
         var _objRb = _obj.GetComponent<Rigidbody>();
-        _objRb.AddForce(_objRb.mass * 600 * directionVector);
+        _objRb.AddForce(_objRb.mass * 600 * (directionVector + new Vector3(0, 0.3f, 0)));
     }
 
     [Command]

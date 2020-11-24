@@ -36,6 +36,7 @@ public class GameManager : NetworkBehaviour
         {
             playerInputManager.EnableReportUi();
             playerInputManager.InitReportUi(GetHiders(players));
+            localPlayer.GetComponent<HiderScanner>().InitAllHiders(GetHiders(players));
         }
     }
 
