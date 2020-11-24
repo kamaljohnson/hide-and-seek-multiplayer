@@ -12,6 +12,13 @@ public class HiderScanner : MonoBehaviour
 
     public bool canScan;
 
+    public static HiderScanner instance;
+
+    public void Start()
+    {
+        instance = this;
+    }
+
     public void Update()
     {
         if (canScan)

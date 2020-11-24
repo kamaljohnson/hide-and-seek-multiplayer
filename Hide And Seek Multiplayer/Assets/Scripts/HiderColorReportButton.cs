@@ -6,6 +6,11 @@ public class HiderColorReportButton : MonoBehaviour
     public PlayerColor color;
     Image bgColor;
     
+    public void ReportColor()
+    {
+        Report.instance.ReportColor(color);
+    }
+
     public PlayerColor GetColor()
     {
         return color;
