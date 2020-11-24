@@ -1,5 +1,4 @@
 ﻿using Mirror;
-using System.Collections;
 using UnityEngine;
 
 public enum PlayerType
@@ -176,30 +175,36 @@ public class Player : NetworkBehaviour
         equppedObjectType = type;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
+        if (!isLocalPlayer) return;
         if(other.tag == "ActionObject")
         {
-            Action.instance.SetActionObjectNear(true);
-            Action.instance.SetNearActionObject(other.gameObject.GetComponent<ActionObject>());
+            if (!other.GetComponent<ActionObject>().isAttached)
+            {
+                Action.instance.SetActionObjectNear(true);
+                Action.instance.SetNearActionObject(other.gameObject.GetComponent<ActionObject>());
+            }
         }
     }
 
     [Client]
     private void OnTriggerExit(Collider other)
     {
+        if (!isLocalPlayer) return;
         if (other.tag == "ActionObject")
         {
             Action.instance.SetActionObjectNear(false);
         }
     }
 
+    [Client]
     void OnChangeEquipment(EquippableObjectType oldEquippedItem, EquippableObjectType newEquippedItem)
     {
         ChangeEquipment(newEquippedItem);
     }
 
+    [Client]
     void ChangeEquipment(EquippableObjectType newEquippedItem)
     {
         if(newEquippedItem == EquippableObjectType.None)
@@ -211,6 +216,7 @@ public class Player : NetworkBehaviour
         } else
         {
             GameObject obj = Instantiate(EquippableObjectCollection.instance.GetPrefab(newEquippedItem), handTransform);
+            obj.GetComponent<ActionObject>().isAttached = true;
             obj.GetComponent<Rigidbody>().isKinematic = true;
         }
     }

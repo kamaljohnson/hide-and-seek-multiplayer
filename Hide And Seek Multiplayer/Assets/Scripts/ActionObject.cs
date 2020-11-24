@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,10 @@ public enum ActionInputType {
     Joystick
 }
 
-public class ActionObject : MonoBehaviour
+public class ActionObject : NetworkBehaviour
 {
     public ActionInputType actionInputType;
+    [SyncVar] public bool isAttached;
 
     [Serializable]
     public class OnActionInvoke : UnityEvent { }
@@ -32,6 +34,7 @@ public class ActionObject : MonoBehaviour
     public ActionObject Attach()
     {
         onAttach.Invoke();
+        isAttached = true;
         return this;
     }
 }
