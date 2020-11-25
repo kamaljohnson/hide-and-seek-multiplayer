@@ -18,6 +18,8 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnChngeFrez))]
     public bool isFrozen;
 
+    public GameObject freezBlock;
+
     public GameObject _camera;
 
     public GameObject body;
@@ -284,6 +286,7 @@ public class Player : NetworkBehaviour
     void GetFrozen()
     {
         GetComponent<Movement>().canMove = false;
+        freezBlock.SetActive(true);
         //start a timer and re-spawn and unFreez player
     }
 }
