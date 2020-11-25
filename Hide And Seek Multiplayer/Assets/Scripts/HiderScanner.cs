@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class HiderScanner : MonoBehaviour
 {
-    public List<Player> allHiders;
-    
     private Dictionary<Player, float> visibleHidersDict;
     public List<Player> visibleHiders;
 
@@ -29,14 +27,13 @@ public class HiderScanner : MonoBehaviour
 
     public void InitAllHiders(List<Player> hiders)
     {
-        allHiders = hiders;
         canScan = true;
         visibleHidersDict = new Dictionary<Player, float>();
     }
 
     public void Scan()
     {
-        foreach(Player hider in allHiders)
+        foreach(Player hider in GameManager.instance.GetHiders())
         {
             if (hider.transform.GetChild(0).GetComponent<Renderer>().isVisible)
             {
@@ -64,11 +61,12 @@ public class HiderScanner : MonoBehaviour
 
     public bool CheckIfHiderIsVisible(PlayerColor color)
     {
-        return GetVisibleHiders().Contains(allHiders.Find(x => x.color == color));
+        return GetVisibleHiders().Contains(GameManager.instance.GetHiders().Find(x => x.color == color));
     }
 
     public List<Player> GetVisibleHiders()
     {
+        print("dict: " + visibleHidersDict);
         return new List<Player>(visibleHidersDict.Keys);
     }
 }

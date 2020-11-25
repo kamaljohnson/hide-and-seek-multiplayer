@@ -31004,7 +31004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1459761474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39415,6 +39415,7 @@ MonoBehaviour:
   reportButton: {fileID: 1459761473}
   hiderPanelGrid: {fileID: 670460223}
   hiderPanelObjPrefab: {fileID: 5882948352226040939, guid: e6f5d67464f42a94aa25384ac90f4ebf, type: 3}
+  coolDownTime: 10
 --- !u!43 &1942249034
 Mesh:
   m_ObjectHideFlags: 0

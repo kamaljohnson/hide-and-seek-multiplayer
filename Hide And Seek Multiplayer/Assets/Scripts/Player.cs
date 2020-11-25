@@ -15,6 +15,9 @@ public class Player : NetworkBehaviour
 
     [SyncVar] public PlayerColor color;
 
+    [SyncVar(hook = nameof(OnChngeFrez))]
+    public bool isFrozen;
+
     public GameObject _camera;
 
     public GameObject body;
@@ -244,5 +247,43 @@ public class Player : NetworkBehaviour
             obj.GetComponent<ActionObject>().isAttached = true;
             obj.GetComponent<Rigidbody>().isKinematic = true;
         }
+    }
+
+    [Client]
+    public void FreezPlayerWithColor(PlayerColor color)
+    {
+        CmdFreezPlayerWithColor(color);
+    }
+
+    [Client]
+    public void FreezSelf()
+    {
+        CmdFreezPlayerWithColor(color);
+    }
+
+    [Command]
+    public void CmdFreezPlayerWithColor(PlayerColor color)
+    {
+        GameManager.instance.FreezPlayerWithColor(color);
+    }
+    
+    [Server]
+    public void Freez()
+    {
+        isFrozen = true;
+    }
+
+    void OnChngeFrez(bool oldIsFreez, bool newIsFreez)
+    {
+        if (newIsFreez)
+        {
+            GetFrozen();
+        }
+    }
+
+    void GetFrozen()
+    {
+        GetComponent<Movement>().canMove = false;
+        //start a timer and re-spawn and unFreez player
     }
 }

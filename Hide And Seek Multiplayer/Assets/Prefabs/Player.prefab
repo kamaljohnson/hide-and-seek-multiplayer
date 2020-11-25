@@ -58,6 +58,7 @@ MonoBehaviour:
   syncInterval: 0.1
   type: 1
   color: 0
+  isFrozen: 0
   _camera: {fileID: 7537738702820317357}
   body: {fileID: 8984167190882639078}
   fov: {fileID: 7981065283433406105}
@@ -79,6 +80,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   speed: 10
+  canMove: 1
 --- !u!114 &906551089558685035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,13 +168,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5353711628477324739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 495ef224b15778843a038e12fb381958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allHiders: []
-  delayWindow: 5
+  visibleHiders: []
+  delayWindow: 2
   canScan: 0
 --- !u!1 &5455474866755715842
 GameObject:
@@ -220,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fov: 360
-  viewDistance: 30
+  viewDistance: 16
   rayCount: 200
   mask:
     serializedVersion: 2

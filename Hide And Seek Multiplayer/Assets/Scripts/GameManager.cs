@@ -36,6 +36,7 @@ public class GameManager : NetworkBehaviour
         {
             playerInputManager.EnableReportUi();
             playerInputManager.InitReportUi(GetHiders(players));
+            localPlayer.GetComponent<HiderScanner>().enabled = true;
             localPlayer.GetComponent<HiderScanner>().InitAllHiders(GetHiders(players));
         }
     }
@@ -62,9 +63,24 @@ public class GameManager : NetworkBehaviour
         return players.Where(player => player.type == PlayerType.Hider).ToList();
     }
 
+    public List<Player> GetHiders()
+    {
+        return (GetHiders(players));
+    }
+
     public List<Player> GetSeekers(List<Player> players)
     {
         return players.Where(player => player.type == PlayerType.Seeker).ToList();
     }
 
+    public Player GetPlayerWithColor(PlayerColor color)
+    {
+        return players.Find(x => x.color == color);
+    }
+
+    [Server]
+    public void FreezPlayerWithColor(PlayerColor color)
+    {
+        GetPlayerWithColor(color).Freez();
+    }
 }

@@ -5,6 +5,7 @@ public class Movement : NetworkBehaviour
 {
     public int speed;
     public PlayerAction playerAction;
+    public bool canMove = true;
 
     public void Awake()
     {
@@ -23,7 +24,7 @@ public class Movement : NetworkBehaviour
 
     void Update()
     {
-        if(isLocalPlayer)
+        if(isLocalPlayer && canMove)
         {
             Vector2 input = playerAction.Main.Move.ReadValue<Vector2>();
 

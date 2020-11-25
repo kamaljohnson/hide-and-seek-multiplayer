@@ -10,10 +10,30 @@ public class Report : MonoBehaviour
     public GameObject hiderPanelObjPrefab;
 
     public static Report instance;
+    public float coolDownTime;
+    float coolDownTimer;
 
     public void Start()
     {
+        coolDownTimer = coolDownTime;
         instance = this;
+    }
+
+    public void Update()
+    {
+        if (coolDownTimer >= 0)
+        {
+            coolDownTimer -= Time.deltaTime;
+            if(reportButton.activeSelf)
+            {
+                DissableReportButton();
+            }
+            return;
+        }
+        if(!reportButton.activeSelf)
+        {
+            EnableReportButton();
+        }
     }
 
     public void InitHiderPanel(List<Player> hiders)
@@ -44,10 +64,22 @@ public class Report : MonoBehaviour
         if (hiderVisible)
         {
             Debug.Log("hider : " + color + " is visible and reported corectly");
+            GameManager.instance.localPlayer.FreezPlayerWithColor(color);
         } else
         {
             Debug.Log("hider : " + color + " is not visible and reported incorrectly corectly");
+            GameManager.instance.localPlayer.FreezSelf();
         }
+    }
+
+    public void EnableReportButton()
+    {
+        reportButton.SetActive(true);
+    }
+
+    public void DissableReportButton()
+    {
+        reportButton.SetActive(false);
     }
 
 }
