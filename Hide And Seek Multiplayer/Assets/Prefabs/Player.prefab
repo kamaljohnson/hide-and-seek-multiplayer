@@ -226,6 +226,9 @@ MonoBehaviour:
   fov: 360
   viewDistance: 16
   rayCount: 200
+  maskableTags:
+  - PlayerBody
+  - MaskableObject
   mask:
     serializedVersion: 2
     m_Bits: 256

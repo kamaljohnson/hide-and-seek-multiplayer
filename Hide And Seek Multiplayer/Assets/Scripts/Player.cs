@@ -93,14 +93,20 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void ClientSetupFovPlayerMasking()
     {
-        if (type == GameManager.instance.localPlayer.type)
+        if (isLocalPlayer)
+        {
+            fovObject.SetActive(true);
+            body.GetComponent<MaskableObject>().isAlwaysVisible = true;
+        }
+        // uncomment if team members need fov sharing
+        /*if (type == GameManager.instance.localPlayer.type)
         {
             fovObject.SetActive(true);
             body.GetComponent<MaskableObject>().isAlwaysVisible = true;
         } else
         {
             body.GetComponent<MaskableObject>().isAlwaysVisible = false;
-        }
+        }*/
     }
 
     [Client]

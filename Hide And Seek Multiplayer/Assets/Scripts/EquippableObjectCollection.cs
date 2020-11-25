@@ -4,7 +4,8 @@ using UnityEngine;
 public enum EquippableObjectType
 {
     None,   //nothing is equipped
-    Book
+    Book,
+    Ball
 }
 
 public class EquippableObjectCollection : MonoBehaviour

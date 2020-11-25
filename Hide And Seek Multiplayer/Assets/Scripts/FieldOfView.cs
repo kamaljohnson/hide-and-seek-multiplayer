@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
@@ -6,6 +8,9 @@ public class FieldOfView : MonoBehaviour
     public float fov = 90f;
     public float viewDistance = 50f;
     public int rayCount = 2;
+
+    [TagSelector]
+    public string[] maskableTags = new string[] { };
 
     Mesh mesh;
     Vector3 origin;
@@ -84,7 +89,7 @@ public class FieldOfView : MonoBehaviour
         {
             RaycastHit _hit = hits[j];
             string colliderTag = _hit.collider.tag;
-            if (colliderTag == "MaskableObject" || colliderTag == "PlayerBody")
+            if (Array.Exists(maskableTags, tag => tag == colliderTag))
             {
                 _hit.collider.gameObject.GetComponent<MaskableObject>().setAsVisible();
             }
