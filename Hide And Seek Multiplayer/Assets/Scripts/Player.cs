@@ -31,6 +31,8 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnChangeEquipment))]
     public EquippableObjectType equppedObjectType;
 
+    public float coolDownTime;
+
     public override string ToString()
     {
         return "type : " + type.ToString() + ", color: " + color.ToString();
@@ -43,10 +45,12 @@ public class Player : NetworkBehaviour
         if (!isLocalPlayer)
         {
             _camera.SetActive(false);
+            fovObject.SetActive(false);
             InitPlayerColor();
         } 
         else
         {
+            body.GetComponent<MaskableObject>().SetAsAlwaysVisible();
             JoinGame();
             GameManager.instance.localPlayer = this;
         }
@@ -76,37 +80,6 @@ public class Player : NetworkBehaviour
     public void ClientChangePlayerType(PlayerType type)
     {
         this.type = type;
-    }
-
-    [Client]
-    public void SetupFovPlayerMasking()
-    {
-        CmdSetupFovPlayerMasking();
-    }
-
-    [Command]
-    public void CmdSetupFovPlayerMasking()
-    {
-        ClientSetupFovPlayerMasking();
-    }
-
-    [ClientRpc]
-    public void ClientSetupFovPlayerMasking()
-    {
-        if (isLocalPlayer)
-        {
-            fovObject.SetActive(true);
-            body.GetComponent<MaskableObject>().isAlwaysVisible = true;
-        }
-        // uncomment if team members need fov sharing
-        /*if (type == GameManager.instance.localPlayer.type)
-        {
-            fovObject.SetActive(true);
-            body.GetComponent<MaskableObject>().isAlwaysVisible = true;
-        } else
-        {
-            body.GetComponent<MaskableObject>().isAlwaysVisible = false;
-        }*/
     }
 
     [Client]
@@ -280,12 +253,33 @@ public class Player : NetworkBehaviour
     {
         isFrozen = true;
     }
+    
+    [Server]
+    public void UnFreez()
+    {
+        isFrozen = false;
+    }
+
+    [Server]
+    public void SpawnPlayer()
+    {
+        TargetSpawnPlayer();
+    }
+
+    [TargetRpc]
+    public void TargetSpawnPlayer()
+    {
+        GameManager.instance.SpawnLocalPlayer();
+    }
 
     void OnChngeFrez(bool oldIsFreez, bool newIsFreez)
     {
         if (newIsFreez)
         {
             GetFrozen();
+        } else
+        {
+            GetUnFrozen();
         }
     }
 
@@ -293,6 +287,23 @@ public class Player : NetworkBehaviour
     {
         GetComponent<Movement>().canMove = false;
         freezBlock.SetActive(true);
-        //start a timer and re-spawn and unFreez player
+    }
+
+    void GetUnFrozen()
+    {
+        GetComponent<Movement>().canMove = true;
+        freezBlock.SetActive(false);
+    }
+
+    [Server]
+    public void PrintToLocalPlayerFromServer(string text)
+    {
+        ClientPrintToLocalPlayerFromServer(text);
+    }
+
+    [ClientRpc]
+    public void ClientPrintToLocalPlayerFromServer(string text)
+    {
+        Debug.Log("SERVER: " + text);
     }
 }

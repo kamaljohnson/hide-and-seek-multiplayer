@@ -38,7 +38,7 @@ public class HiderScanner : MonoBehaviour
             if (hider.transform.GetChild(0).GetComponent<Renderer>().isVisible)
             {
                 visibleHidersDict[hider] = delayWindow;
-                Debug.Log("hider: " + hider + " is visible, dictionary: " + visibleHidersDict.ToString());
+                Debug.Log("hider: " + hider + " is visible, dictionary: " + visibleHidersDict.ToString());  
             }
         }
 
@@ -66,7 +66,6 @@ public class HiderScanner : MonoBehaviour
 
     public List<Player> GetVisibleHiders()
     {
-        print("dict: " + visibleHidersDict);
         return new List<Player>(visibleHidersDict.Keys);
     }
 }

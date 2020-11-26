@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
+    public float seekerViewDistance = 16f;
+    public float hiderViewDistance = 20f;
 
-    public float fov = 90f;
-    public float viewDistance = 50f;
-    public int rayCount = 2;
+    float fov = 360;
+
+    private float viewDistance;
+    public int rayCount;
 
     [TagSelector]
     public string[] maskableTags = new string[] { };
@@ -15,19 +17,19 @@ public class FieldOfView : MonoBehaviour
     Mesh mesh;
     Vector3 origin;
 
-    PlayerType oppositionPlayerType;
+    PlayerType type;
 
     public LayerMask mask;
     
     public void Start()
     {
+        viewDistance = seekerViewDistance;
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
     public void LateUpdate()
     {
-
         float angle = 0f;
         float angleIncrease = fov / rayCount;
 
@@ -80,6 +82,19 @@ public class FieldOfView : MonoBehaviour
         mesh.bounds = new Bounds(origin, Vector3.one * 1000f);
     }
 
+    public void SetUpFovPlayerType(PlayerType type)
+    {
+        switch (type)
+        {
+            case PlayerType.Seeker:
+                viewDistance = seekerViewDistance;
+                break;
+            case PlayerType.Hider:
+                viewDistance = hiderViewDistance;
+                break;
+        }
+    }
+
     public void ShowMaskableObjects(float angle, float distance)
     {
 
@@ -91,7 +106,7 @@ public class FieldOfView : MonoBehaviour
             string colliderTag = _hit.collider.tag;
             if (Array.Exists(maskableTags, tag => tag == colliderTag))
             {
-                _hit.collider.gameObject.GetComponent<MaskableObject>().setAsVisible();
+                _hit.collider.gameObject.GetComponent<MaskableObject>().SetAsVisible();
             }
         }
     }
@@ -100,10 +115,5 @@ public class FieldOfView : MonoBehaviour
     {
         float angleRad = angle * (Mathf.PI / 180f);
         return new Vector3(Mathf.Cos(angleRad), 0, Mathf.Sin(angleRad));
-    }
-
-    public void SetPlayerType(PlayerType playerType)
-    {
-        oppositionPlayerType = playerType == PlayerType.Hider ? PlayerType.Seeker : PlayerType.Hider;
     }
 }

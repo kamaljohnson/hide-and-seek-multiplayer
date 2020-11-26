@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,10 +30,11 @@ public class GameManager : NetworkBehaviour
         lobbyRoom.SetActive(false);
         gameBuilding.SetActive(true);
 
-        localPlayer.SetupFovPlayerMasking();
-        PlayerSpawner.instance.SpawnPlayer(localPlayer);
+        SpawnLocalPlayer();
 
-        if(localPlayer.type == PlayerType.Seeker)
+        localPlayer.fov.SetUpFovPlayerType(localPlayer.type);
+
+        if (localPlayer.type == PlayerType.Seeker)
         {
             playerInputManager.EnableReportUi();
             playerInputManager.InitReportUi(GetHiders(players));
@@ -81,6 +83,30 @@ public class GameManager : NetworkBehaviour
     [Server]
     public void FreezPlayerWithColor(PlayerColor color)
     {
-        GetPlayerWithColor(color).Freez();
+        Player player = GetPlayerWithColor(color);
+        player.Freez();
+        StartCoroutine("UnFreezPlayer", player);
+    }
+
+    [Server]
+    IEnumerator UnFreezPlayer(Player player)
+    {
+        yield return new WaitForSeconds(GetPlayerCoolDownTime(player));
+
+        player.SpawnPlayer();
+        player.UnFreez();
+    }
+
+    [Client]
+    public void SpawnLocalPlayer()
+    {
+        PlayerSpawner.instance.SpawnPlayer(localPlayer);
+    }
+
+    [Server]
+    public float GetPlayerCoolDownTime(Player player)
+    {
+        //TODO: update the cooldown time of the player
+        return player.coolDownTime;
     }
 }

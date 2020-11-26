@@ -19,6 +19,11 @@ public class MaskableObject : MonoBehaviour
     public void Start()
     {
         renderer = GetComponent<Renderer>();
+        if (!isAlwaysVisible)
+        {
+            isVisible = false;
+            renderer.enabled = false;
+        }
     }
 
     private void LateUpdate()
@@ -30,7 +35,6 @@ public class MaskableObject : MonoBehaviour
                 renderer.enabled = true;
             }
             visibilitySwitchFlag = true;
-
             return;
         } else
         {
@@ -54,7 +58,7 @@ public class MaskableObject : MonoBehaviour
         }
     }
 
-    public void setAsVisible()
+    public void SetAsVisible()
     {
         if (isAlwaysVisible) return;
         if (!isVisible)
@@ -64,5 +68,11 @@ public class MaskableObject : MonoBehaviour
         }
 
         visibilityTimer = visiblityPeriod;
+    }
+
+    public void SetAsAlwaysVisible()
+    {
+        isAlwaysVisible = true;
+        visibilitySwitchFlag = false;
     }
 }

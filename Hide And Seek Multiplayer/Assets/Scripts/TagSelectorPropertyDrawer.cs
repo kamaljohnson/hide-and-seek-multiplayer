@@ -5,6 +5,7 @@ using System.Collections.Generic;
 //Original by DYLAN ENGELMAN http://jupiterlighthousestudio.com/custom-inspectors-unity/
 //Altered by Brecht Lecluyse http://www.brechtos.com
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(TagSelectorAttribute))]
 public class TagSelectorPropertyDrawer : PropertyDrawer
 {
@@ -74,3 +75,4 @@ public class TagSelectorPropertyDrawer : PropertyDrawer
         }
     }
 }
+#endif

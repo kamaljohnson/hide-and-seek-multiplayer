@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class PlayerSpawner : NetworkBehaviour
         instance = this;
     }
 
+    [Client]
     public void SpawnPlayer(Player player)
     {
         if(player.type == PlayerType.Hider)
@@ -24,5 +26,12 @@ public class PlayerSpawner : NetworkBehaviour
         {
             player.transform.position = seekerSpawnLocations[Random.Range(0, seekerSpawnLocations.Count)].position;
         }
+    }
+
+    [Client]
+    public IEnumerator SpawnPlayer(Player player, float time)
+    {
+        yield return new WaitForSeconds(time);
+        SpawnPlayer(player);
     }
 }
