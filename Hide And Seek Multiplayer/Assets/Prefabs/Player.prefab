@@ -162,8 +162,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.2484777, z: 1}
-  m_Center: {x: 0, y: -0.37576115, z: 0}
+  m_Size: {x: 1, y: 0.4208851, z: 1}
+  m_Center: {x: 0, y: -0.28955746, z: 0}
 --- !u!114 &-5975103564711250160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +372,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 8
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
