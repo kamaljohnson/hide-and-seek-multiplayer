@@ -23,6 +23,7 @@ public class Player : NetworkBehaviour
     public GameObject _camera;
 
     public GameObject body;
+    public GameObject colorHeadBand;
     public FieldOfView fov;
     public GameObject fovObject;
 
@@ -51,6 +52,7 @@ public class Player : NetworkBehaviour
         else
         {
             body.GetComponent<MaskableObject>().SetAsAlwaysVisible();
+            colorHeadBand.GetComponent<MaskableObject>().SetAsAlwaysVisible();
             JoinGame();
             GameManager.instance.localPlayer = this;
         }
@@ -119,13 +121,13 @@ public class Player : NetworkBehaviour
     public void ClientChangePlayerColor(PlayerColor color)
     {
         //change the actual player material according to the new color
-        body.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int)color];
+        colorHeadBand.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int)color];
     }
 
     [Client]
     public void InitPlayerColor()
     {
-        body.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int) color];
+        colorHeadBand.GetComponent<Renderer>().material = LobbyManager.instance.playerColorMaterials[(int) color];
     }
 
     [Client]

@@ -7,6 +7,8 @@ public class Movement : NetworkBehaviour
     public PlayerAction playerAction;
     public bool canMove = true;
 
+    public PlayerAnimator animator;
+
     public void Awake()
     {
         playerAction = new PlayerAction();
@@ -32,6 +34,15 @@ public class Movement : NetworkBehaviour
             var inputY = input.y;
 
             transform.position += new Vector3(inputX, 0, inputY) * Time.deltaTime * speed;
+
+            if (Mathf.Abs(inputX) + Mathf.Abs(inputY) > 0)
+            {
+                animator.Walk();
+            } 
+            else
+            {
+                animator.Idle();
+            }
         }
     }
 }
